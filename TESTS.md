@@ -29,6 +29,8 @@ Cobertura:
 
 Sem frameworks nem dependências: não existe etapa de build. A validação foi feita sobre os arquivos que serão servidos diretamente.
 
+O parser local do Prettier 3.6.2 validou e formatou HTML e CSS. A ferramenta foi baixada apenas para uso temporário de desenvolvimento, em pasta ignorada pelo Git; não faz parte do site ou de suas dependências.
+
 ## Limites
 
 - Não foi enviada mensagem real pelo WhatsApp nem e-mail de teste. A estrutura de todos os links e o número foram conferidos; não se atribui entrega de mensagem ou titularidade de uma sessão WhatsApp que não foi acessada.

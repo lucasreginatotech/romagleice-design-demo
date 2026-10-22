@@ -55,7 +55,7 @@ frame.addEventListener('load', async () => {
     detail.querySelector('summary').click();
     check('FAQ fecha', !detail.open);
     const css = await (await fetch('/style.css')).text();
-    check('Redução de movimento respeitada', css.includes('prefers-reduced-motion:reduce'));
+    check('Redução de movimento respeitada', /prefers-reduced-motion\s*:\s*reduce/.test(css));
     check('Aviso de imagens ilustrativas', doc.querySelector('.gallery-disclaimer').textContent.includes('Não representam projetos'));
     check('SEO e proteção da demonstração', doc.querySelector('meta[name="description"]').content.length > 50 && doc.querySelector('meta[property="og:image"]') && doc.querySelector('meta[name="robots"]').content.includes('noindex'));
     document.querySelector('#result').textContent = JSON.stringify({ pass: results.every(r => r.pass), total: results.length, failed: results.filter(r => !r.pass), results }, null, 2);
