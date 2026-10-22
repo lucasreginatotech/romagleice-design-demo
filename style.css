@@ -1255,18 +1255,22 @@ html.js nav.is-open .button {
     font-size: 11px;
   }
   .hero {
-    grid-template-columns: 46% 54%;
-    min-height: 680px;
+    width: calc(100% - 72px);
+    max-width: 1280px;
+    margin-inline: auto;
+    grid-template-columns: minmax(0, 46fr) minmax(0, 54fr);
+    min-height: 640px;
   }
   .hero-copy {
-    padding: 75px 30px 45px 36px;
+    min-width: 0;
+    padding: 55px 30px 45px 0;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
     justify-content: center;
   }
   .hero h1 {
-    font-size: clamp(78px, 8.8vw, 132px);
+    font-size: clamp(72px, 8.8vw, 120px);
   }
   .hero-eyebrow {
     font-size: 8px;
@@ -1291,9 +1295,10 @@ html.js nav.is-open .button {
     margin-top: 26px;
   }
   .hero-visual {
-    height: 100%;
-    min-height: 680px;
-    margin: 0 16px 16px 0;
+    height: 640px;
+    min-height: 0;
+    min-width: 0;
+    margin: 0 0 20px;
     border-radius: 120px 3px 3px 3px;
   }
   .hero-image {
@@ -1397,18 +1402,19 @@ html.js nav.is-open .button {
     gap: 34px;
   }
   .hero {
-    min-height: 740px;
+    width: min(1280px, calc(100% - 120px));
+    min-height: 700px;
   }
   .hero-copy {
-    padding-left: max(60px, calc((100vw - 1280px) / 2));
+    padding-left: 0;
     padding-right: 45px;
   }
   .hero-eyebrow {
     font-size: 9px;
   }
   .hero-visual {
-    min-height: 740px;
-    margin-right: 24px;
+    height: 700px;
+    margin-right: 0;
   }
   .hero-description {
     font-size: 17px;
