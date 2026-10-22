@@ -902,7 +902,7 @@ html.js nav.is-open .button {
   padding: 12px 17px;
   border: 1px solid #ffffff45;
   border-radius: 32px;
-  background: #344c36;
+  background: #227847;
   color: white;
   box-shadow: 0 4px 22px #17231426;
   transition:
@@ -910,15 +910,22 @@ html.js nav.is-open .button {
     background 0.2s;
 }
 .floating-whatsapp svg {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
+  display: block;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  fill: currentColor;
+  stroke: none;
+  overflow: visible;
 }
 .floating-whatsapp > span {
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
 }
 .floating-whatsapp:hover {
-  background: #4a6244;
+  background: #1b633a;
   transform: translateY(-2px);
 }
 .lightbox {
@@ -1351,8 +1358,8 @@ html.js nav.is-open .button {
     padding: 0;
   }
   .floating-whatsapp svg {
-    width: 27px;
-    height: 27px;
+    width: 28px;
+    height: 28px;
   }
   .floating-whatsapp > span {
     position: absolute;
