@@ -37,9 +37,15 @@ Licença consultada: https://unsplash.com/license (uso permitido inclusive comer
 
 | Arquivo | Origem |
 | --- | --- |
-| hero.webp, hero-mobile.webp | https://images.unsplash.com/photo-1600607687920-4e2a09cf159d |
-| cozinha.webp | https://images.unsplash.com/photo-1556912172-45b7abe8b7e1 |
-| estar.webp | https://images.unsplash.com/photo-1616486338812-3dadae4b4ace |
-| quarto.webp | https://images.unsplash.com/photo-1615874959474-d609969a20ed |
+| hero.webp, hero-mobile.webp | https://images.unsplash.com/photo-1774200981075-a728eaaa3824 |
+| cozinha.webp | https://images.unsplash.com/photo-1769326541248-5e09a8ace25b |
+| estar.webp | https://images.unsplash.com/photo-1774199679021-db3b421867c3 |
+| quarto.webp | https://images.unsplash.com/photo-1758072328635-586f3c121af2 |
 
-Downloads em WebP por parâmetros `fm=webp`, largura entre 800 e 1920 px, qualidade 78–80. Servidos localmente, sem dependência de CDN em tempo de execução. Créditos também acessíveis pelo rodapé.
+Downloads em WebP por parâmetros `fm=webp`, largura entre 800 e 1600 px, qualidade 80. Servidos localmente, sem dependência de CDN em tempo de execução. Créditos também acessíveis pelo rodapé.
+
+## Curadoria revisada para mobile
+
+A apresentação, a sala e o dormitório são fotografias de Clay Banks; a cozinha é de Puscas Adryan. Origens com licença gratuita Unsplash verificadas em https://unsplash.com/photos/Hnec2oEbbxk, https://unsplash.com/photos/A9DmoCgM5iw, https://unsplash.com/photos/Xbe5BfScmvM e https://unsplash.com/photos/ilbLEHMhxMA. A escolha privilegia madeira natural, tons areia, iluminação suave e ambientes residenciais.
+
+Fontes: Cormorant Garamond (500 normal e itálico) e DM Sans (400–600), subconjunto latino WOFF2 hospedado localmente. Licenças SIL OFL 1.1 incluídas em assets/fonts, obtidas de https://github.com/google/fonts/tree/main/ofl/cormorantgaramond e https://github.com/google/fonts/tree/main/ofl/dmsans. Nenhuma chamada de fonte para terceiros na visita.

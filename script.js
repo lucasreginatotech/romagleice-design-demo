@@ -82,3 +82,21 @@ if (lightbox && typeof lightbox.showModal === 'function') {
     lastImageButton?.focus({ preventScroll: true });
   });
 }
+
+// O atalho flutuante aparece durante a leitura, sem disputar espaço com os CTAs principais.
+const floatingContact = document.querySelector('.floating-whatsapp');
+if (floatingContact && 'IntersectionObserver' in window) {
+  const visibleContactAreas = new Set();
+  const contactObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) visibleContactAreas.add(entry.target);
+      else visibleContactAreas.delete(entry.target);
+    });
+    const resting = visibleContactAreas.size > 0;
+    floatingContact.classList.toggle('is-resting', resting);
+    floatingContact.setAttribute('tabindex', resting ? '-1' : '0');
+    if (resting) floatingContact.setAttribute('aria-hidden', 'true');
+    else floatingContact.removeAttribute('aria-hidden');
+  }, { threshold: 0 });
+  document.querySelectorAll('.hero-cta, #contato').forEach(area => contactObserver.observe(area));
+}

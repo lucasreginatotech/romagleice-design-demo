@@ -19,9 +19,13 @@ frame.addEventListener('load', async () => {
     await Promise.all([...doc.images].filter(i => i.src).map(i => i.decode().catch(() => {})));
     check('Fotografias e SVG carregados', [...doc.images].filter(i => i.src).every(i => i.naturalWidth > 0));
     check('Fotografias com descrição alternativa', [...doc.images].filter(i => i.src).every(i => i.alt.length > 10));
+    await doc.fonts.ready;
+    check('Cormorant Garamond carregada localmente', [...doc.fonts].some(font => font.family.includes('Cormorant') && font.status === 'loaded'));
+    check('DM Sans carregada localmente', [...doc.fonts].some(font => font.family.includes('DM Sans') && font.status === 'loaded'));
+    check('Assinatura sem monograma cortado', !doc.querySelector('.brand-monogram') && doc.querySelector('.brand-name'));
     const resourceURLs = ['/', '/style.css', '/script.js', '/fontes.html', '/assets/favicon.svg', '/robots.txt', '/sitemap.xml'];
     for (const url of resourceURLs) check('HTTP 200: ' + url, (await fetch(url)).status === 200);
-    for (const width of [320, 375, 390, 540, 768, 800, 801, 1024, 1440, 1920]) {
+    for (const width of [320, 360, 375, 390, 430, 540, 768, 800, 801, 1024, 1440, 1920]) {
       frame.style.width = width + 'px';
       await new Promise(resolve => win.requestAnimationFrame(() => win.requestAnimationFrame(resolve)));
       check('Sem overflow horizontal em ' + width + 'px', doc.documentElement.scrollWidth <= doc.documentElement.clientWidth + 1);
@@ -30,6 +34,10 @@ frame.addEventListener('load', async () => {
     frame.style.width = '390px';
     await new Promise(resolve => win.requestAnimationFrame(resolve));
     const menu = doc.querySelector('.menu-toggle');
+    check('Menu com alvo de toque de 48px', menu.getBoundingClientRect().height >= 48);
+    check('Filtros com alvo de toque de 44px', [...doc.querySelectorAll('.filter')].every(button => button.getBoundingClientRect().height >= 44));
+    check('Marca cabe no cabeçalho mobile', doc.querySelector('.brand').getBoundingClientRect().right < menu.getBoundingClientRect().left);
+    check('Texto de leitura com tamanho adequado', parseFloat(win.getComputedStyle(doc.querySelector('.hero-description')).fontSize) >= 15 && parseFloat(win.getComputedStyle(doc.querySelector('.intro-copy')).fontSize) >= 14);
     menu.click();
     check('Menu abre e atualiza ARIA', menu.getAttribute('aria-expanded') === 'true' && win.getComputedStyle(doc.querySelector('nav')).display === 'flex');
     win.document.dispatchEvent(new win.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
@@ -45,7 +53,7 @@ frame.addEventListener('load', async () => {
     const imageButton = doc.querySelector('[data-image]');
     imageButton.click();
     const dialog = doc.querySelector('dialog');
-    check('Ampliação abre imagem correta', dialog.open && doc.querySelector('#lightbox-image').src.endsWith('assets/cozinha.webp'));
+    check('Ampliação abre imagem correta', dialog.open && new URL(doc.querySelector('#lightbox-image').src).pathname.endsWith('assets/cozinha.webp'));
     doc.querySelector('.lightbox-close').click();
     await new Promise(resolve => win.requestAnimationFrame(resolve));
     check('Ampliação fecha e devolve foco', !dialog.open && !doc.body.classList.contains('modal-open') && doc.activeElement === imageButton);

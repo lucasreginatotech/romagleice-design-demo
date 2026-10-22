@@ -1,6 +1,6 @@
 # RomaGleice Design — demonstração por LR Tech
 
-Site institucional independente, feito exclusivamente com **HTML5, CSS3 e JavaScript puro**. Sem frameworks, dependências, compilação, fontes externas ou envio de dados por formulários.
+Site institucional independente, feito exclusivamente com **HTML5, CSS3 e JavaScript puro**. Sem frameworks, dependências, compilação, fontes carregadas de serviços externos ou envio de dados por formulários.
 
 ## Links
 
@@ -28,7 +28,7 @@ WhatsApp confirmado no site oficial: **+55 11 95428-1006**. Os CTAs usam `wa.me`
 
 Fotografias do Unsplash sob [Unsplash License](https://unsplash.com/license), identificadas como **ilustrativas** junto às imagens e na galeria. Não são projetos da empresa. Consulte `fontes.html` para os arquivos originais. Fotos oficiais não foram copiadas por falta de autorização expressa de reutilização.
 
-O monograma e o favicon são propostas visuais, não reproduções do logotipo oficial. Não foram inventados avaliações, depoimentos, garantias, preços, anos de mercado ou condições comerciais.
+A assinatura tipográfica e o favicon são propostas visuais, não reproduções do logotipo oficial. Não foram inventados avaliações, depoimentos, garantias, preços, anos de mercado ou condições comerciais.
 
 ## SEO e privacidade
 
@@ -41,3 +41,7 @@ Projeto estático, sem etapa de build. GitHub Pages usa a branch `main`, pasta r
 A integração Vercel retornou 403 para criar um projeto no time conectado. Não houve alteração em projetos existentes. Nunca configurar o domínio `romagleice.com.br` nesta demonstração.
 
 Nenhum `.env`, token, perfil de navegador ou artefato de autenticação deve ser versionado. Os scripts de GitHub usam apenas o Git Credential Manager já configurado e mantêm a credencial exclusivamente em memória.
+
+## Refinamento para mobile
+
+A versão revisada utiliza Cormorant Garamond e DM Sans em WOFF2 local (licenças SIL OFL em assets/fonts), abertura editorial com fotografia independente do texto, marca tipográfica sem monograma, navegação aderente ao topo, áreas de toque de 44–56 px e WhatsApp flutuante que se recolhe quando os contatos principais estão visíveis. As quatro fotografias foram substituídas por uma seleção de tons naturais, com créditos atualizados.

@@ -22,7 +22,7 @@
     <meta property="og:url" content="https://lucasreginatotech.github.io/romagleice-design-demo/" />
     <meta
       property="og:image"
-      content="https://lucasreginatotech.github.io/romagleice-design-demo/assets/hero.webp"
+      content="https://lucasreginatotech.github.io/romagleice-design-demo/assets/hero.webp?v=2"
     />
     <meta
       property="og:image:alt"
@@ -30,26 +30,39 @@
     />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href="https://lucasreginatotech.github.io/romagleice-design-demo/" />
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2" />
     <link
       rel="preload"
       as="image"
-      href="assets/hero.webp"
-      imagesrcset="assets/hero-mobile.webp 800w, assets/hero.webp 1920w"
-      imagesizes="100vw"
+      href="assets/hero.webp?v=2"
+      imagesrcset="assets/hero-mobile.webp?v=2 800w, assets/hero.webp?v=2 1600w"
+      imagesizes="(min-width: 801px) 55vw, 100vw"
     />
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
+    <link
+      rel="preload"
+      href="assets/fonts/cormorant-500-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/dm-sans-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="style.css?v=2" />
+    <script src="script.js?v=2" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-    <div class="demo-bar">
-      Uma nova perspectiva para a RomaGleice <span>·</span> Demonstração por LR Tech
-    </div>
+    <div class="demo-bar">Um novo olhar para o seu lar <span>·</span> Demonstração LR Tech</div>
     <header class="site-header">
       <a class="brand" href="#inicio" aria-label="RomaGleice Design, início"
-        ><span class="brand-monogram" aria-hidden="true">RG<span>╱</span></span
-        ><span>RomaGleice<small>DESIGN & MARCENARIA</small></span></a
+        ><span class="brand-name"
+          >Roma<span>Gleice</span><small>MARCENARIA & DESIGN</small></span
+        ></a
       >
       <button
         class="menu-toggle"
@@ -73,37 +86,46 @@
     </header>
     <main id="conteudo">
       <section class="hero" id="inicio" aria-labelledby="hero-title">
-        <picture
-          ><source media="(max-width: 600px)" srcset="assets/hero-mobile.webp" />
-          <img
-            class="hero-image"
-            src="assets/hero.webp"
-            width="1920"
-            height="1280"
-            alt="Sala integrada com madeira natural e luz suave — imagem ilustrativa"
-            fetchpriority="high"
-        /></picture>
-        <div class="hero-shade"></div>
-        <div class="hero-content container">
-          <p class="eyebrow light"><span></span> MÓVEIS PLANEJADOS · SÃO PAULO</p>
-          <h1 id="hero-title">O seu jeito de viver.<br />Em cada <em>detalhe.</em></h1>
-          <p>
-            Marcenaria sob medida para dar forma às suas ideias<br class="desktop-break" />
-            e fazer do seu espaço um lugar seu.
+        <div class="hero-copy">
+          <p class="eyebrow hero-eyebrow">
+            <span aria-hidden="true"></span> MÓVEIS PLANEJADOS EM SÃO PAULO
+          </p>
+          <h1 id="hero-title">Uma casa.<br />O seu <em>jeito.</em></h1>
+          <p class="hero-description">
+            Tem lugar para as suas ideias.<br />E para a vida que acontece aí.
+          </p>
+          <p class="hero-description hero-description-secondary">
+            Móveis sob medida, pensados com você.
           </p>
           <a
-            class="button button-cream"
+            class="button hero-cta"
             href="https://wa.me/5511954281006?text=Ol%C3%A1%21%20Quero%20conversar%20sobre%20m%C3%B3veis%20planejados%20para%20meu%20espa%C3%A7o."
             target="_blank"
             rel="noopener noreferrer"
-            >Comece seu projeto <span aria-hidden="true">↗</span></a
+            >Vamos imaginar seu espaço <span aria-hidden="true">↗</span></a
+          >
+          <a class="hero-discover" href="#ambientes"
+            >Conheça as possibilidades <span aria-hidden="true">↓</span></a
           >
         </div>
-        <div class="hero-bottom container">
-          <a href="#ambientes">EXPLORE OS AMBIENTES <span aria-hidden="true">↓</span></a
-          ><span>IMAGEM ILUSTRATIVA · UNSPLASH</span>
-        </div>
-        <span class="hero-side" aria-hidden="true">FORMA, FUNÇÃO E PERSONALIDADE.</span>
+        <figure class="hero-visual">
+          <picture
+            ><source media="(max-width: 600px)" srcset="assets/hero-mobile.webp?v=2" />
+            <img
+              class="hero-image"
+              src="assets/hero.webp?v=2"
+              srcset="assets/hero-mobile.webp?v=2 800w, assets/hero.webp?v=2 1600w"
+              sizes="(min-width: 801px) 54vw, 100vw"
+              width="1600"
+              height="1800"
+              alt="Ambiente integrado com madeira clara e sofá em linho — fotografia ilustrativa de Clay Banks"
+              fetchpriority="high"
+          /></picture>
+          <figcaption>INSPIRAÇÃO DE AMBIENTE <span>FOTOGRAFIA ILUSTRATIVA</span></figcaption>
+          <span class="hero-photo-title" aria-hidden="true"
+            >O natural de<br />se sentir em casa.</span
+          >
+        </figure>
       </section>
       <div class="values-strip" aria-label="Especialidades">
         <span>Feito para o seu espaço</span><i aria-hidden="true">✳</i
@@ -137,10 +159,11 @@
           <div class="section-top">
             <div>
               <p class="eyebrow"><span class="index">02 /</span> POSSIBILIDADES PARA O SEU LAR</p>
-              <h2>Cada ambiente,<br />uma nova <em>possibilidade.</em></h2>
+              <h2>Qual cantinho<br />tem a <em>sua cara?</em></h2>
             </div>
             <p class="section-aside">
-              Inspirações de materiais, formas e atmosferas para começar a imaginar o seu espaço.
+              A cozinha das conversas longas. A sala que acolhe. O quarto que desacelera. Comece
+              pelo seu lugar favorito.
             </p>
           </div>
           <div class="portfolio-toolbar">
@@ -150,22 +173,22 @@
               ><button class="filter" data-filter="estar" aria-pressed="false">Estar</button
               ><button class="filter" data-filter="quarto" aria-pressed="false">Dormitórios</button>
             </div>
-            <span class="illustrative-note">GALERIA ILUSTRATIVA</span>
+            <span class="illustrative-note">REFERÊNCIAS PARA INSPIRAR</span>
           </div>
           <p class="sr-only" id="filter-status" aria-live="polite"></p>
           <div class="portfolio-grid">
             <article class="project-card project-large" data-category="cozinha">
               <button
                 class="project-image"
-                data-image="assets/cozinha.webp"
+                data-image="assets/cozinha.webp?v=2"
                 data-title="Cozinha · encontro e praticidade"
                 aria-label="Ampliar inspiração de cozinha, imagem ilustrativa"
               >
                 <img
-                  src="assets/cozinha.webp"
-                  alt="Cozinha clara com bancada ampla e armários — imagem ilustrativa"
-                  width="1100"
-                  height="733"
+                  src="assets/cozinha.webp?v=2"
+                  alt="Cozinha em tons areia com ilha de madeira e armários — fotografia ilustrativa de Puscas Adryan"
+                  width="1200"
+                  height="530"
                   loading="lazy"
                 /><span class="image-tag">IMAGEM ILUSTRATIVA</span
                 ><span class="image-expand" aria-hidden="true">↗</span>
@@ -187,13 +210,13 @@
             <article class="project-card" data-category="estar">
               <button
                 class="project-image"
-                data-image="assets/estar.webp"
+                data-image="assets/estar.webp?v=2"
                 data-title="Estar · espaço para acolher"
                 aria-label="Ampliar inspiração de estar, imagem ilustrativa"
               >
                 <img
-                  src="assets/estar.webp"
-                  alt="Sala de estar em tons neutros com detalhes de madeira — imagem ilustrativa"
+                  src="assets/estar.webp?v=2"
+                  alt="Sala com sofá claro e grandes janelas de madeira — fotografia ilustrativa de Clay Banks"
                   width="1100"
                   height="733"
                   loading="lazy"
@@ -217,15 +240,15 @@
             <article class="project-card" data-category="quarto">
               <button
                 class="project-image"
-                data-image="assets/quarto.webp"
+                data-image="assets/quarto.webp?v=2"
                 data-title="Dormitório · seu refúgio particular"
                 aria-label="Ampliar inspiração de dormitório, imagem ilustrativa"
               >
                 <img
-                  src="assets/quarto.webp"
-                  alt="Quarto acolhedor com cama e decoração em tons naturais — imagem ilustrativa"
-                  width="1000"
-                  height="1000"
+                  src="assets/quarto.webp?v=2"
+                  alt="Dormitório neutro com armário de madeira — fotografia ilustrativa de Clay Banks"
+                  width="1100"
+                  height="733"
                   loading="lazy"
                 /><span class="image-tag">IMAGEM ILUSTRATIVA</span
                 ><span class="image-expand" aria-hidden="true">↗</span>
@@ -320,7 +343,7 @@
       <section class="details-section">
         <div class="detail-photo">
           <img
-            src="assets/estar.webp"
+            src="assets/estar.webp?v=2"
             alt="Materiais e texturas de um ambiente residencial — fotografia ilustrativa"
             width="1100"
             height="733"
@@ -386,7 +409,7 @@
         <div class="container faq-layout">
           <div>
             <p class="eyebrow"><span class="index">05 /</span> ANTES DE COMEÇAR</p>
-            <h2>Boas perguntas.<br /><em>Respostas claras.</em></h2>
+            <h2>Pode perguntar.<br /><em>A gente conversa.</em></h2>
           </div>
           <div class="faq-list">
             <details>
@@ -437,7 +460,7 @@
         <div class="container">
           <p class="eyebrow"><span class="index">06 /</span> VAMOS TIRAR SUA IDEIA DO PAPEL?</p>
           <div class="contact-top">
-            <h2>Há um novo jeito<br />de viver o <em>seu espaço.</em></h2>
+            <h2>Vamos dar forma<br />ao seu <em>próximo capítulo?</em></h2>
             <a
               class="contact-circle"
               href="https://wa.me/5511954281006?text=Ol%C3%A1%21%20Vi%20a%20demonstra%C3%A7%C3%A3o%20da%20RomaGleice%20Design.%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento."
@@ -481,8 +504,10 @@
       </section>
     </main>
     <footer class="site-footer container">
-      <a class="brand" href="#inicio"
-        ><span>RomaGleice<small>DESIGN & MARCENARIA</small></span></a
+      <a class="brand" href="#inicio" aria-label="RomaGleice Design, início"
+        ><span class="brand-name"
+          >Roma<span>Gleice</span><small>MARCENARIA & DESIGN</small></span
+        ></a
       >
       <p>
         Demonstração independente por <strong>LR Tech</strong>.<br />Fotografias ilustrativas.

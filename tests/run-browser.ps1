@@ -52,5 +52,14 @@ foreach ($viewport in @(@{width=390;height=844;mobile=$true;name='mobile'},@{wid
   $screenshot = Send-CDP 'Page.captureScreenshot' @{format='png';captureBeyondViewport=$false}
   [IO.File]::WriteAllBytes((Join-Path (Get-Location) ('test-results/'+$viewport.name+'.png')),[Convert]::FromBase64String($screenshot.data))
 }
+# Revisão visual das seções mais importantes no celular.
+Send-CDP 'Emulation.setDeviceMetricsOverride' @{width=390;height=844;deviceScaleFactor=1;mobile=$true} | Out-Null
+foreach ($section in @('ambientes','servicos','contato')) {
+  $scrollExpression = "document.documentElement.style.scrollBehavior='auto'; document.querySelectorAll('img').forEach(i=>i.loading='eager'); window.scrollTo(0,document.getElementById('$section').getBoundingClientRect().top+window.scrollY-94); new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))"
+  Send-CDP 'Runtime.evaluate' @{expression=$scrollExpression;awaitPromise=$true} | Out-Null
+  Send-CDP 'Runtime.evaluate' @{expression='Promise.all([...document.images].filter(i=>i.src).map(i=>i.decode().catch(()=>{})))';awaitPromise=$true} | Out-Null
+  $screenshot = Send-CDP 'Page.captureScreenshot' @{format='png';captureBeyondViewport=$false}
+  [IO.File]::WriteAllBytes((Join-Path (Get-Location) ('test-results/mobile-'+$section+'.png')),[Convert]::FromBase64String($screenshot.data))
+}
 $socket.Dispose()
 if (-not ($report | ConvertFrom-Json).pass) { exit 1 }

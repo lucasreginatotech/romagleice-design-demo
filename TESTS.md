@@ -2,7 +2,7 @@
 
 ## Resultado
 
-**49 verificações automatizadas aprovadas**, executadas no Chrome headless local com perfil temporário exclusivo. Revisão visual de capturas em 390 × 844 e 1440 × 1100.
+**60 verificações automatizadas aprovadas**, executadas no Chrome headless local com perfil temporário exclusivo. Revisão visual de capturas em 390 × 844 e 1440 × 1100, incluindo abertura, galeria, serviços e contato no celular.
 
 Cobertura:
 
@@ -13,7 +13,7 @@ Cobertura:
 - Todos os CTAs de WhatsApp usam o telefone oficial `5511954281006` e mensagem preenchida.
 - Fotografias carregadas, alternativas descritivas e créditos de ilustração.
 - HTTP 200 para página, CSS, JS, créditos, favicon, robots e sitemap locais.
-- Ausência de overflow horizontal e título do hero dentro da tela em **320, 375, 390, 540, 768, 800, 801, 1024, 1440 e 1920 px**.
+- Ausência de overflow horizontal e título do hero dentro da tela em **320, 360, 375, 390, 430, 540, 768, 800, 801, 1024, 1440 e 1920 px**.
 - Menu abre/fecha, estado ARIA, Escape, retorno de foco e fechamento ao selecionar link.
 - Filtros cozinha, estar, quarto e todos, incluindo atualização de `aria-pressed`.
 - Ampliação com imagem correta, fechamento e retorno de foco.
@@ -39,3 +39,7 @@ O parser local do Prettier 3.6.2 validou e formatou HTML e CSS. A ferramenta foi
 - Não houve teste em aparelho físico nem auditoria formal de conformidade WCAG ou Lighthouse. Responsividade foi verificada em viewports de navegador.
 - A revisão automática bloqueou o envio do HTML não publicado ao W3C. Não foi contornado o bloqueio; foi mantida a validação local de estrutura, recursos e comportamento.
 - Vercel: criação de projeto retornou 403 por falta de acesso da integração ao time. Não se alteraram projetos existentes nem o domínio oficial.
+
+## Verificações adicionais do refinamento
+
+Carregamento local de Cormorant Garamond e DM Sans, ausência do monograma anterior, marca dentro dos limites do cabeçalho, menu com alvo de 48 px, filtros com alvo mínimo de 44 px e tamanho mínimo de 14–15 px nos principais textos de leitura mobile. O atalho flutuante usa IntersectionObserver para ceder espaço aos contatos principais.
