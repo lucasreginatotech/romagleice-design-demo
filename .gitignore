@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+.vercel/
+.qa-browser/
+test-results/
+official.html
+assets/*original*
+node_modules/
+*.zip
+*.log

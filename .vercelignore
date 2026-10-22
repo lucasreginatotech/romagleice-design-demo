@@ -1,0 +1,12 @@
+.git
+.env*
+.qa-browser
+tests
+scripts
+test-results
+official.html
+assets/*original*
+README.md
+RESEARCH.md
+TESTS.md
+*.zip

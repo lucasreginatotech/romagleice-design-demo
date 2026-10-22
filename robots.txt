@@ -1,0 +1,3 @@
+# Demonstração independente: não indexar nem competir com o site oficial.
+User-agent: *
+Disallow: /
