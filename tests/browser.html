@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><title>Testes da demonstração</title></head><body><pre id="result">RUNNING</pre><iframe id="site" src="/" title="Site em teste" style="width:390px;height:900px;border:0"></iframe><script>
+'use strict';
+// Harness sem dependências: executado pelo Chrome headless contra o servidor local.
+const frame = document.querySelector('#site');
+const results = [];
+function check(name, value) { results.push({ name, pass: Boolean(value) }); }
+frame.addEventListener('load', async () => {
+  try {
+    const doc = frame.contentDocument;
+    const win = frame.contentWindow;
+    check('JavaScript inicializado', doc.documentElement.classList.contains('js'));
+    check('Um único h1', doc.querySelectorAll('h1').length === 1);
+    check('Idioma pt-BR', doc.documentElement.lang === 'pt-BR');
+    check('Todos os fragmentos existem', [...doc.querySelectorAll('a[href^="#"]')].every(a => doc.getElementById(a.hash.slice(1))));
+    check('Links externos protegidos', [...doc.querySelectorAll('a[target="_blank"]')].every(a => a.rel.includes('noopener') && a.rel.includes('noreferrer')));
+    check('WhatsApp oficial e mensagem em todos os CTAs', [...doc.querySelectorAll('a[href*="wa.me"]')].every(a => { const url = new URL(a.href); return url.hostname === 'wa.me' && url.pathname === '/5511954281006' && url.searchParams.get('text')?.length > 10; }));
+    for (const image of doc.images) { if (!image.id.includes('lightbox')) image.loading = 'eager'; }
+    await Promise.all([...doc.images].filter(i => i.src).map(i => i.decode().catch(() => {})));
+    check('Fotografias e SVG carregados', [...doc.images].filter(i => i.src).every(i => i.naturalWidth > 0));
+    check('Fotografias com descrição alternativa', [...doc.images].filter(i => i.src).every(i => i.alt.length > 10));
+    const resourceURLs = ['/', '/style.css', '/script.js', '/fontes.html', '/assets/favicon.svg', '/robots.txt', '/sitemap.xml'];
+    for (const url of resourceURLs) check('HTTP 200: ' + url, (await fetch(url)).status === 200);
+    for (const width of [320, 375, 390, 540, 768, 800, 801, 1024, 1440, 1920]) {
+      frame.style.width = width + 'px';
+      await new Promise(resolve => win.requestAnimationFrame(() => win.requestAnimationFrame(resolve)));
+      check('Sem overflow horizontal em ' + width + 'px', doc.documentElement.scrollWidth <= doc.documentElement.clientWidth + 1);
+      check('Hero cabe em ' + width + 'px', doc.querySelector('h1').getBoundingClientRect().right <= width + 1);
+    }
+    frame.style.width = '390px';
+    await new Promise(resolve => win.requestAnimationFrame(resolve));
+    const menu = doc.querySelector('.menu-toggle');
+    menu.click();
+    check('Menu abre e atualiza ARIA', menu.getAttribute('aria-expanded') === 'true' && win.getComputedStyle(doc.querySelector('nav')).display === 'flex');
+    win.document.dispatchEvent(new win.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    check('Escape fecha menu e devolve foco', menu.getAttribute('aria-expanded') === 'false' && doc.activeElement === menu);
+    menu.click();
+    doc.querySelector('nav a').click();
+    check('Link fecha menu mobile', menu.getAttribute('aria-expanded') === 'false');
+    for (const filter of ['cozinha', 'estar', 'quarto', 'todos']) {
+      const button = doc.querySelector('[data-filter="' + filter + '"]');
+      button.click();
+      check('Filtro ' + filter, doc.querySelectorAll('[data-category]:not([hidden])').length === (filter === 'todos' ? 3 : 1) && button.getAttribute('aria-pressed') === 'true');
+    }
+    const imageButton = doc.querySelector('[data-image]');
+    imageButton.click();
+    const dialog = doc.querySelector('dialog');
+    check('Ampliação abre imagem correta', dialog.open && doc.querySelector('#lightbox-image').src.endsWith('assets/cozinha.webp'));
+    doc.querySelector('.lightbox-close').click();
+    await new Promise(resolve => win.requestAnimationFrame(resolve));
+    check('Ampliação fecha e devolve foco', !dialog.open && !doc.body.classList.contains('modal-open') && doc.activeElement === imageButton);
+    const detail = doc.querySelector('details');
+    detail.querySelector('summary').click();
+    check('FAQ abre', detail.open);
+    detail.querySelector('summary').click();
+    check('FAQ fecha', !detail.open);
+    const css = await (await fetch('/style.css')).text();
+    check('Redução de movimento respeitada', css.includes('prefers-reduced-motion:reduce'));
+    check('Aviso de imagens ilustrativas', doc.querySelector('.gallery-disclaimer').textContent.includes('Não representam projetos'));
+    check('SEO e proteção da demonstração', doc.querySelector('meta[name="description"]').content.length > 50 && doc.querySelector('meta[property="og:image"]') && doc.querySelector('meta[name="robots"]').content.includes('noindex'));
+    document.querySelector('#result').textContent = JSON.stringify({ pass: results.every(r => r.pass), total: results.length, failed: results.filter(r => !r.pass), results }, null, 2);
+  } catch (error) { document.querySelector('#result').textContent = 'ERROR: ' + error.stack; }
+}, { once: true });
+</script></body></html>
