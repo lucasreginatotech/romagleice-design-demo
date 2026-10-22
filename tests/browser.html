@@ -50,6 +50,7 @@ frame.addEventListener('load', async () => {
       button.click();
       check('Filtro ' + filter, doc.querySelectorAll('[data-category]:not([hidden])').length === (filter === 'todos' ? 3 : 1) && button.getAttribute('aria-pressed') === 'true');
     }
+    check('Galeria anima somente quando permitido', [...doc.querySelectorAll('.project-card')].some(card => card.getAnimations().length > 0) === !win.matchMedia('(prefers-reduced-motion: reduce)').matches);
     const imageButton = doc.querySelector('[data-image]');
     imageButton.click();
     const dialog = doc.querySelector('dialog');
@@ -66,6 +67,13 @@ frame.addEventListener('load', async () => {
     check('Redução de movimento respeitada', /prefers-reduced-motion\s*:\s*reduce/.test(css));
     check('Aviso de imagens ilustrativas', doc.querySelector('.gallery-disclaimer').textContent.includes('Não representam projetos'));
     check('SEO e proteção da demonstração', doc.querySelector('meta[name="description"]').content.length > 50 && doc.querySelector('meta[property="og:image"]') && doc.querySelector('meta[name="robots"]').content.includes('noindex'));
+    check('Indicador de leitura decorativo', doc.querySelector('.reading-progress')?.getAttribute('aria-hidden') === 'true');
+    check('Ondulações não entram na leitura assistiva', doc.querySelectorAll('.section-wave[aria-hidden="true"]').length === 2);
+    check('Identificação comercial em destaque', doc.querySelector('.company-signature')?.textContent.includes('RomaGleice Design') && doc.querySelector('.company-signature')?.textContent.includes('São Paulo'));
+    check('Preferência de movimento aplicada', doc.documentElement.classList.contains('motion-enabled') === !win.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    if (win.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      check('Nenhuma animação com movimento reduzido', doc.getAnimations().length === 0);
+    }
     document.querySelector('#result').textContent = JSON.stringify({ pass: results.every(r => r.pass), total: results.length, failed: results.filter(r => !r.pass), results }, null, 2);
   } catch (error) { document.querySelector('#result').textContent = 'ERROR: ' + error.stack; }
 }, { once: true });

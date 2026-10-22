@@ -26,6 +26,7 @@ function Send-CDP($method, $parameters) {
 }
 Send-CDP 'Page.enable' @{} | Out-Null
 Send-CDP 'Runtime.enable' @{} | Out-Null
+Send-CDP 'Emulation.setEmulatedMedia' @{features=@(@{name='prefers-reduced-motion';value='no-preference'})} | Out-Null
 Send-CDP 'Page.navigate' @{url='http://127.0.0.1:4173/tests/browser.html'} | Out-Null
 $expression = @'
 new Promise(resolve => {
@@ -44,11 +45,20 @@ $evaluation = Send-CDP 'Runtime.evaluate' @{expression=$expression;awaitPromise=
 $report = $evaluation.result.value
 [IO.File]::WriteAllText((Join-Path (Get-Location) 'test-results/browser-results.json'),$report,[Text.UTF8Encoding]::new($false))
 Write-Output $report
+# Repete a navegação com a preferência de acessibilidade aplicada pelo navegador.
+Send-CDP 'Emulation.setEmulatedMedia' @{features=@(@{name='prefers-reduced-motion';value='reduce'})} | Out-Null
+Send-CDP 'Page.navigate' @{url='http://127.0.0.1:4173/tests/browser.html?motion=reduce'} | Out-Null
+$reducedEvaluation = Send-CDP 'Runtime.evaluate' @{expression=$expression;awaitPromise=$true;returnByValue=$true}
+$reducedReport = $reducedEvaluation.result.value
+[IO.File]::WriteAllText((Join-Path (Get-Location) 'test-results/reduced-motion-results.json'),$reducedReport,[Text.UTF8Encoding]::new($false))
+Write-Output ('Movimento reduzido: '+$reducedReport)
+Send-CDP 'Emulation.setEmulatedMedia' @{features=@(@{name='prefers-reduced-motion';value='no-preference'})} | Out-Null
 # Capturas da própria página em viewports mobile e desktop.
 Send-CDP 'Page.navigate' @{url='http://127.0.0.1:4173/'} | Out-Null
 foreach ($viewport in @(@{width=390;height=844;mobile=$true;name='mobile'},@{width=1440;height=1100;mobile=$false;name='desktop'})) {
   Send-CDP 'Emulation.setDeviceMetricsOverride' @{width=$viewport.width;height=$viewport.height;deviceScaleFactor=1;mobile=$viewport.mobile} | Out-Null
   Send-CDP 'Runtime.evaluate' @{expression='document.fonts.ready.then(() => Promise.all([...document.images].filter(i=>i.src && i.loading!=="lazy").map(i=>i.decode().catch(()=>{}))))';awaitPromise=$true} | Out-Null
+  Send-CDP 'Runtime.evaluate' @{expression='Promise.all(document.getAnimations().filter(a=>a.effect.getTiming().iterations!==Infinity).map(a=>a.finished.catch(()=>{})))';awaitPromise=$true} | Out-Null
   $screenshot = Send-CDP 'Page.captureScreenshot' @{format='png';captureBeyondViewport=$false}
   [IO.File]::WriteAllBytes((Join-Path (Get-Location) ('test-results/'+$viewport.name+'.png')),[Convert]::FromBase64String($screenshot.data))
 }
@@ -58,8 +68,10 @@ foreach ($section in @('ambientes','servicos','contato')) {
   $scrollExpression = "document.documentElement.style.scrollBehavior='auto'; document.querySelectorAll('img').forEach(i=>i.loading='eager'); window.scrollTo(0,document.getElementById('$section').getBoundingClientRect().top+window.scrollY-94); new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))"
   Send-CDP 'Runtime.evaluate' @{expression=$scrollExpression;awaitPromise=$true} | Out-Null
   Send-CDP 'Runtime.evaluate' @{expression='Promise.all([...document.images].filter(i=>i.src).map(i=>i.decode().catch(()=>{})))';awaitPromise=$true} | Out-Null
+  Send-CDP 'Runtime.evaluate' @{expression='Promise.all(document.getAnimations().filter(a=>a.effect.getTiming().iterations!==Infinity).map(a=>a.finished.catch(()=>{})))';awaitPromise=$true} | Out-Null
   $screenshot = Send-CDP 'Page.captureScreenshot' @{format='png';captureBeyondViewport=$false}
   [IO.File]::WriteAllBytes((Join-Path (Get-Location) ('test-results/mobile-'+$section+'.png')),[Convert]::FromBase64String($screenshot.data))
 }
 $socket.Dispose()
 if (-not ($report | ConvertFrom-Json).pass) { exit 1 }
+if (-not ($reducedReport | ConvertFrom-Json).pass) { exit 1 }

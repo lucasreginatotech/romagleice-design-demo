@@ -2,7 +2,7 @@
 
 ## Resultado
 
-**60 verificações automatizadas aprovadas**, executadas no Chrome headless local com perfil temporário exclusivo. Revisão visual de capturas em 390 × 844 e 1440 × 1100, incluindo abertura, galeria, serviços e contato no celular.
+**65 verificações automatizadas aprovadas no modo normal e 66 no modo de movimento reduzido**, executadas no Chrome headless local com perfil temporário exclusivo. Revisão visual de capturas em 390 × 844 e 1440 × 1100, incluindo abertura, galeria, serviços e contato no celular.
 
 Cobertura:
 
@@ -43,3 +43,7 @@ O parser local do Prettier 3.6.2 validou e formatou HTML e CSS. A ferramenta foi
 ## Verificações adicionais do refinamento
 
 Carregamento local de Cormorant Garamond e DM Sans, ausência do monograma anterior, marca dentro dos limites do cabeçalho, menu com alvo de 48 px, filtros com alvo mínimo de 44 px e tamanho mínimo de 14–15 px nos principais textos de leitura mobile. O atalho flutuante usa IntersectionObserver para ceder espaço aos contatos principais.
+
+## Movimento e acessibilidade
+
+O Chrome foi explicitamente configurado primeiro com prefers-reduced-motion: no-preference e depois com reduce. Foram repetidos os fluxos completos nos dois modos. Verificado que a galeria produz animações apenas no modo normal e que nenhuma animação permanece no modo reduzido. Validados separadores decorativos com aria-hidden, indicador de leitura e identificação comercial em destaque. Capturas aguardam somente animações finitas para não registrar blocos no meio da entrada.

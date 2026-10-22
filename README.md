@@ -45,3 +45,7 @@ Nenhum `.env`, token, perfil de navegador ou artefato de autenticação deve ser
 ## Refinamento para mobile
 
 A versão revisada utiliza Cormorant Garamond e DM Sans em WOFF2 local (licenças SIL OFL em assets/fonts), abertura editorial com fotografia independente do texto, marca tipográfica sem monograma, navegação aderente ao topo, áreas de toque de 44–56 px e WhatsApp flutuante que se recolhe quando os contatos principais estão visíveis. As quatro fotografias foram substituídas por uma seleção de tons naturais, com créditos atualizados.
+
+## Movimento e navegação
+
+Entradas progressivas com Web Animations API e IntersectionObserver, transições na galeria, abertura suave do menu e ampliação, FAQ animada, navegação com indicação da seção atual, indicador de leitura e separadores com ondulações orgânicas. O conteúdo permanece visível se a animação não puder executar. Ondas fora da tela são pausadas; mudanças em prefers-reduced-motion cancelam imediatamente as animações em andamento.

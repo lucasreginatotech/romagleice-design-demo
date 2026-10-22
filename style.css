@@ -1537,3 +1537,158 @@ html.js nav.is-open .button {
   transform: translateY(16px);
   pointer-events: none;
 }
+
+/* Movimento orgânico: decoração contida, sem alterar o tamanho ou a leitura das seções. */
+.reading-progress {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--wood);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
+.site-header {
+  transition:
+    box-shadow 0.3s,
+    background 0.3s;
+}
+.site-header.is-scrolled {
+  box-shadow: 0 5px 24px #30342d0a;
+}
+nav > a:not(.button) {
+  position: relative;
+  transition: color 0.25s;
+}
+nav > a:not(.button)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  width: 100%;
+  height: 1px;
+  background: var(--wood);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+nav > a:not(.button):hover,
+nav > a.nav-current {
+  color: var(--wood);
+}
+nav > a:not(.button):hover::after,
+nav > a.nav-current::after {
+  transform: scaleX(1);
+}
+.button span,
+.text-link span,
+.project-caption > a,
+.image-expand,
+.contact-circle > span {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s;
+}
+@media (hover: hover) and (pointer: fine) {
+  .button:hover span,
+  .text-link:hover span,
+  .contact-circle:hover > span {
+    transform: translate(3px, -3px);
+  }
+  .project-image:hover .image-expand {
+    transform: rotate(5deg);
+    background: #30342d8c;
+  }
+  .project-caption > a:hover {
+    transform: translateY(-3px);
+  }
+}
+.services,
+.contact {
+  position: relative;
+}
+.section-wave {
+  position: absolute;
+  left: 0;
+  top: -35px;
+  width: 100%;
+  height: 36px;
+  overflow: hidden;
+  pointer-events: none;
+  contain: paint;
+}
+.section-wave svg {
+  display: block;
+  width: 150%;
+  height: 100%;
+  max-width: none;
+}
+.services > .section-wave {
+  color: var(--dark);
+}
+.contact > .section-wave {
+  color: #ded2bf;
+}
+.company-signature {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 32px;
+  grid-column: 2;
+}
+.signature-line {
+  width: 38px;
+  height: 1px;
+  background: var(--wood);
+  flex-shrink: 0;
+}
+.company-signature p {
+  font-family: var(--serif);
+  font-size: 25px;
+  line-height: 1.4;
+}
+.company-signature small {
+  display: block;
+  font-family: var(--sans);
+  font-size: 10px;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-top: 5px;
+}
+@media (min-width: 801px) {
+  .section-wave {
+    top: -54px;
+    height: 55px;
+  }
+  .company-signature {
+    margin-top: 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .motion-enabled .section-wave svg {
+    animation: gentle-wave 22s linear infinite;
+    animation-play-state: paused;
+    will-change: transform;
+  }
+  .motion-enabled .section-wave.wave-active svg {
+    animation-play-state: running;
+  }
+  .lightbox::backdrop {
+    animation: backdrop-arrive 0.3s ease both;
+  }
+}
+@keyframes gentle-wave {
+  to {
+    transform: translateX(-33.333333%);
+  }
+}
+@keyframes backdrop-arrive {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
